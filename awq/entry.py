@@ -11,6 +11,7 @@ from awq.quantize.quantizer import pseudo_quantize_model_weight, real_quantize_m
 from awq.utils.lm_eval_adaptor import LMEvalAdaptor
 from awq.utils.utils import simple_dispatch_model
 
+from awq.quantize.qmodule import WQLinear
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_path', type=str, help='path of the hf model')
@@ -48,6 +49,8 @@ parser.add_argument('--dump_awq', type=str, default=None,
                     help="save the awq search results")
 parser.add_argument('--load_awq', type=str, default=None,
                     help="load the awq search results")
+parser.add_argument('--torch_awq_kernel', action='store_true',
+                    help="execute dequantizion and matmul with torch only api, require --load_awq")
 args = parser.parse_args()
 
 max_memory = [v.split(':') for v in (args.max_memory or [])]
@@ -103,6 +106,11 @@ def build_model_and_enc(model_path):
             device_map=device_map,
             offload_state_dict=True,
         )
+
+        for n, m in model.named_modules():
+            if isinstance(m, WQLinear):
+                m.do_torch_awq_kernel = args.torch_awq_kernel
+
         # Dispatch model
         model = simple_dispatch_model(model, device_map=device_map)
 
