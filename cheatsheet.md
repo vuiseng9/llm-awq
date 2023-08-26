@@ -60,7 +60,6 @@
                 "--load_quant", 
                     "/data4/vchua/hf-model/awq_cache/realblob-llama-7b-w4-g128.pt",
             ],
-            // "--run_awq", 
             "justMyCode": false,
             "stopOnEntry": false,
         },
