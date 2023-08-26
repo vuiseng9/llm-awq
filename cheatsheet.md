@@ -18,7 +18,6 @@
                 "--load_awq", 
                     "/data4/vchua/hf-model/awq_cache/llama-7b-w4-g128.pt",
             ],
-            // "--run_awq", 
             "justMyCode": false
         },
 ```
@@ -40,7 +39,6 @@
                 "--load_awq", "/data4/vchua/hf-model/awq_cache/llama-7b-w4-g128.pt",
                 "--dump_quant", "/tmp/awq_cache/realblob-llama-7b-w4-g128.pt",
             ],
-            // "--run_awq", 
             "justMyCode": false
         },
 ```
@@ -66,7 +64,6 @@
             "justMyCode": false,
             "stopOnEntry": false,
         },
-        },
 ```
 
 ### NEW - just add --torch_awq_kernel
@@ -88,7 +85,6 @@
                     "/data4/vchua/hf-model/awq_cache/realblob-llama-7b-w4-g128.pt",
                 "--torch_awq_kernel"
             ],
-            // "--run_awq", 
             "justMyCode": false,
             "stopOnEntry": false,
         },
